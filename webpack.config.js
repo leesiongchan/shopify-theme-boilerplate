@@ -13,7 +13,7 @@ const themeID = config.development.theme_id;
 
 module.exports = {
   mode: "production",
-  entry: ["./src/scripts/index.js", "./src/styles/index.css"],
+  entry: ["./src/scripts/index.ts", "./src/styles/index.css"],
   output: {
     filename: "assets/application.js",
     path: path.resolve(__dirname, "dist"),
@@ -27,10 +27,17 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.css$/i,
+        test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"],
       },
+      {
+        test: /\.ts$/,
+        use: "ts-loader",
+      },
     ],
+  },
+  resolve: {
+    extensions: [".ts", ".js"],
   },
   plugins: [
     new CleanWebpackPlugin({
